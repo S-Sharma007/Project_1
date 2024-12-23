@@ -7,6 +7,7 @@ resource "aws_instance" "EC1" {
   instance_type   = "t2.micro"
   key_name        = "DevOps_complete_Project"
   security_groups = [aws_security_group.SG_project1.name]
+  subnet_id       = aws_subnet.pbsubnet1.id
 
   tags = {
     Name = "EC1"
@@ -18,6 +19,7 @@ resource "aws_instance" "EC1" {
 resource "aws_security_group" "SG_project1" {
   name        = "SG_project1"
   description = "ALLow inbount traffic SSH connection"
+  vpc_id      = aws_vpc.Project1vpc.id
 
 
   tags = {
@@ -40,4 +42,69 @@ resource "aws_security_group" "SG_project1" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_vpc" "Project1vpc" {
+  cidr_block = "10.0.0.0/16"
+
+
+  tags = {
+    Name = "Project1vpc"
+  }
+}
+
+resource "aws_subnet" "pbsubnet1" {
+  vpc_id                  = aws_vpc.Project1vpc.id
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = "us-east-1a"
+  map_public_ip_on_launch = "true"
+
+  tags = {
+    Name = "pbsubnet"
+  }
+}
+
+resource "aws_subnet" "pbsubnet2" {
+  vpc_id                  = aws_vpc.Project1vpc.id
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = "us-east-1a"
+  map_public_ip_on_launch = "true"
+
+  tags = {
+    Name = "pbsubnet2"
+  }
+}
+
+
+resource "aws_internet_gateway" "P1IGW" {
+  vpc_id = aws_vpc.Project1vpc.id
+
+  tags = {
+    Name = "P1IGW"
+  }
+}
+
+resource "aws_route_table" "routePB" {
+  vpc_id = aws_vpc.Project1vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.P1IGW.id
+  }
+
+
+  tags = {
+    Name = "routePB"
+  }
+}
+
+
+resource "aws_route_table_association" "routePB_association01" {
+  subnet_id      = aws_subnet.pbsubnet1.id
+  route_table_id = aws_route_table.routePB.id
+}
+
+resource "aws_route_table_association" "routePB_association02" {
+  subnet_id      = aws_subnet.pbsubnet2.id
+  route_table_id = aws_route_table.routePB.id
 }

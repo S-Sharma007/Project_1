@@ -6,7 +6,7 @@ resource "aws_instance" "EC1" {
   ami             = "ami-0ae69fd56f71576ad"
   instance_type   = "t2.micro"
   key_name        = "DevOps_complete_Project"
-  security_groups = [aws_security_group.SG_project1.name]
+  security_groups = [aws_security_group.SG_project1.id]
   subnet_id       = aws_subnet.pbsubnet1.id
 
   tags = {
@@ -60,14 +60,14 @@ resource "aws_subnet" "pbsubnet1" {
   map_public_ip_on_launch = "true"
 
   tags = {
-    Name = "pbsubnet"
+    Name = "pbsubnet1"
   }
 }
 
 resource "aws_subnet" "pbsubnet2" {
   vpc_id                  = aws_vpc.Project1vpc.id
-  cidr_block              = "10.0.1.0/24"
-  availability_zone       = "us-east-1a"
+  cidr_block              = "10.0.2.0/24"
+  availability_zone       = "us-east-1b"
   map_public_ip_on_launch = "true"
 
   tags = {

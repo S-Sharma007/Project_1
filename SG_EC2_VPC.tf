@@ -35,6 +35,8 @@ resource "aws_security_group" "SG_project1" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+
+
   }
 
   egress {
@@ -43,6 +45,15 @@ resource "aws_security_group" "SG_project1" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    description = "http access"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+
+   
   }
 }
 

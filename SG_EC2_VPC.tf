@@ -47,9 +47,9 @@ resource "aws_security_group" "SG_project1" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-    description = "http access"
-    from_port   = 80
-    to_port     = 80
+    description = "Jenkins access"
+    from_port   = 8080
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
 

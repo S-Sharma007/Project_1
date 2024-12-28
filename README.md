@@ -78,7 +78,7 @@ By completing this project, you will have acquired:
 
 1. **Practical Knowledge**
    - Setting up a complete DevOps environment from scratch.
-   - Writing Jenkinsfiles to automate complex workflows.
+   - Writing Jenkinsfiles to automate complex workflows....
    - Using Terraform for infrastructure as code.
 
 2. **Technical Skills**

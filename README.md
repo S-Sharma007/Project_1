@@ -1,7 +1,7 @@
 # Comprehensive DevOps Project: CI/CD Pipeline Setup
 
 ## Overview
-This project showcases a robust CI/CD pipeline implemented using a suite of modern DevOps tools. By following this project, you will gain hands-on experience in setting up, configuring, and using tools like Terraform, Jenkins, SonarQube, JFrog Artifactory, Ansible, Docker, Kubernetes, Helm, Prometheus, and Grafana to streamline software development and deployment processes effectively. The project is designed to be a testament to your practical knowledge and skills, making it an excellent addition to your resume..
+This project showcases a robust CI/CD pipeline implemented using a suite of modern DevOps tools. By following this project, you will gain hands-on experience in setting up, configuring, and using tools like Terraform, Jenkins, SonarQube, JFrog Artifactory, Ansible, Docker, Kubernetes, Helm, Prometheus, and Grafana to streamline software development and deployment processes effectively. The project is designed to be a testament to your practical knowledge and skills, making it an excellent addition to your resume.
 
 ## Table of Contents
 1. [Project Objectives](#project-objectives)

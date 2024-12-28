@@ -1,19 +1,15 @@
 pipeline {
-  agent {
-    node {
-      label 'maven'  
-    }
-  }
-
-environment {
-    PATH = "/opt/apache-maven-3.9.9/bin:$PATH"
-}
-
-  stages {
-    stage("build"){
-        steps {
-            sh 'mvn clean deploy'
+    agent {
+        node {
+            label 'maven'
         }
     }
-  }
+
+    stages {
+        stage('Clone-code') {
+            steps {
+                git branch: 'main' , url: 'https://github.com/S-Sharma007/Project_1.git'
+            }
+        }
+    }
 }

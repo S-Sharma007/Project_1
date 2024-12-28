@@ -5,11 +5,15 @@ pipeline {
         }
     }
 
+environment {
+  PATH = "/opt/apache-maven-3.9.9/bin:$PATH"
+}
+
     stages {
-        stage('Clone-code') {
-            steps {
-                git branch: 'main' , url: 'https://github.com/S-Sharma007/Project_1.git'
-            }
+        stage('build){
+          steps {
+            sh 'mvn clean deploy'
+          }
         }
     }
 }

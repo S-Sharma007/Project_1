@@ -1,15 +1,15 @@
 pipeline {
-    agent {
-        node{
-            label 'maven'
-        }
+  agent {
+    node {
+      label 'maven'  
     }
+  }
 
-    stages {
-        stage('Clone-code') {
-            steps {
-               git branch: 'main', url:'git branch: 'main',url:'https://github.com/S-Sharma007/Project_1.git'
-            }
-        }
+  stages {
+    stage('Clone-code') {
+      steps {
+        git branch: 'main', url: 'https://github.com/S-Sharma007/Project_1.git'
+      }
     }
+  }
 }

@@ -16,9 +16,12 @@ pipeline {
             }
         }
         stage('SonarQube Analysis') {
+          environment {
+            scannerHome = tool 'sonarqube-server'
+          }
             steps {
                 withSonarQubeEnv('sonarqube-server') {
-                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.8.0.2856:sonar'
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
         }

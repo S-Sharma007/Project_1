@@ -15,14 +15,10 @@ pipeline {
                 sh 'mvn clean deploy'
             }
         }
-        
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('sharmatech-key') { 
-                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar ' +
-                       '-Dsonar.projectKey=sharmatech-key_ttrend ' +
-                       '-Dsonar.organization=sharmatech-key ' +
-                       '-Dsonar.host.url=<sonarqubeServerURL>'
+                withSonarQubeEnv('sonarqube-server') {
+                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar'
                 }
             }
         }

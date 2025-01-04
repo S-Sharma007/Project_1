@@ -14,4 +14,7 @@ pipeline {
             steps {
                 sh 'mvn clean deploy'
             }
+        }
+    }
        
+}

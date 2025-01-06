@@ -121,3 +121,17 @@ resource "aws_route_table_association" "routePB_association02" {
   subnet_id      = aws_subnet.pbsubnet2.id
   route_table_id = aws_route_table.routePB.id
 }
+
+
+
+module "sgs" {
+    source = "../sg_eks"
+    vpc_id     =     aws_vpc.Project1vpc.id
+  }
+
+  module "eks" {
+      source = "../eks"
+       vpc_id     =     aws_vpc.dpp-vpc.id
+       subnet_ids = [aws_subnet.pbsubnet1.id,aws_subnet.pbsubnet2.id]
+      sg_ids = module.sgs.security_group_public
+  }

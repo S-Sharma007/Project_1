@@ -2,7 +2,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_instance" "EC1" {
+/*resource "aws_instance" "EC1" {
   ami             = "ami-0ae69fd56f71576ad"
   instance_type   = "t2.micro"
   key_name        = "DevOps_complete_Project"
@@ -13,7 +13,7 @@ resource "aws_instance" "EC1" {
     Name = "${each.key}"
   }
 
-}
+}*/
 
 
 /* Creation of the SG */
@@ -131,7 +131,7 @@ module "sgs" {
 
   module "eks" {
       source = "../eks"
-       vpc_id     =     aws_vpc.dpp-vpc.id
+       vpc_id     =     aws_vpc.Project1vpc.id
        subnet_ids = [aws_subnet.pbsubnet1.id,aws_subnet.pbsubnet2.id]
       sg_ids = module.sgs.security_group_public
   }

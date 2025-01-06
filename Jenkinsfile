@@ -1,6 +1,6 @@
 def registry = 'https://sharma13.jfrog.io'
 def repoName = 'valaxy-docker'
-def imageName = "${valaxy-docker}/ttrend"
+def imageName = "${repoName}/ttrend"
 def version = '2.1.4'
 
 pipeline {
@@ -60,7 +60,7 @@ pipeline {
             steps {
                 script {
                     echo '<--------------- Docker Build Started --------------->'
-                    app = docker.build("${imageName}:${version}")
+                    app = docker.build("${registry}/${imageName}:${version}")
                     echo '<--------------- Docker Build Ended --------------->'
                 }
             }
@@ -79,5 +79,3 @@ pipeline {
         }
     }
 }
-
-

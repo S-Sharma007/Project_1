@@ -1,5 +1,6 @@
 def registry = 'https://sharma13.jfrog.io'
 def repoName = 'valaxy-docker'
+def imageName = "${valaxy-docker}/ttrend"
 def version = '2.1.4'
 
 pipeline {

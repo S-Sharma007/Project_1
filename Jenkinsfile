@@ -1,6 +1,6 @@
 def registry = 'https://sharma13.jfrog.io'
-def repoName = 'valaxy-docker'
-def imageName = "${repoName}/ttrend"
+def repoName = 'valaxy-docker-local'
+def imageName = 'sharma13.jfrog.io/valaxy-docker-local/ttrend'
 def version = '2.1.4'
 
 pipeline {
@@ -60,7 +60,7 @@ pipeline {
             steps {
                 script {
                     echo '<--------------- Docker Build Started --------------->'
-                    app = docker.build("${registry}/${imageName}:${version}")
+                    app = docker.build(imageName+":"+version)
                     echo '<--------------- Docker Build Ended --------------->'
                 }
             }
@@ -70,8 +70,8 @@ pipeline {
             steps {
                 script {
                     echo '<--------------- Docker Publish Started --------------->'
-                    docker.withRegistry("${registry}/artifactory", 'Jforgjenkins-cred') {
-                        app.push("${version}")
+                    docker.withRegistry(registry, 'Jforgjenkins-cred') {
+                        app.push()
                     }
                     echo '<--------------- Docker Publish Ended --------------->'
                 }

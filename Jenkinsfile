@@ -1,6 +1,6 @@
 def registry = 'https://sharma13.jfrog.io'
-def imageName = 'https://sharma13.jfrog.io/artifactory/valaxy-docker/ttrend'
-def version   = '2.1.4'
+def repoName = 'valaxy-docker'
+def version = '2.1.4'
 
 pipeline {
     agent {
@@ -26,7 +26,6 @@ pipeline {
                     echo '<--------------- Jar Publish Started --------------->'
 
                     // Define registry and credentials
-                    def registry = 'https://sharma13.jfrog.io'
                     def server = Artifactory.newServer(
                         url: "${registry}/artifactory",
                         credentialsId: "Jforgjenkins-cred"
@@ -56,28 +55,28 @@ pipeline {
             }
         }
 
-        
-    stage(" Docker Build ") {
-      steps {
-        script {
-           echo '<--------------- Docker Build Started --------------->'
-           app = docker.build(imageName":"+version)
-           echo '<--------------- Docker Build Ends --------------->'
+        stage('Docker Build') {
+            steps {
+                script {
+                    echo '<--------------- Docker Build Started --------------->'
+                    app = docker.build("${imageName}:${version}")
+                    echo '<--------------- Docker Build Ended --------------->'
+                }
+            }
         }
-      }
-    }
 
-            stage (" Docker Publish "){
-        steps {
-            script {
-               echo '<--------------- Docker Publish Started --------------->'  
-                docker.withRegistry(https://sharma13.jfrog.io, 'Jforgjenkins-cred'){
-                    app.push()
-                }    
-               echo '<--------------- Docker Publish Ended --------------->'  
+        stage('Docker Publish') {
+            steps {
+                script {
+                    echo '<--------------- Docker Publish Started --------------->'
+                    docker.withRegistry("${registry}/artifactory", 'Jforgjenkins-cred') {
+                        app.push("${version}")
+                    }
+                    echo '<--------------- Docker Publish Ended --------------->'
+                }
             }
         }
     }
-    }
+}
 
 

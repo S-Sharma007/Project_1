@@ -5,7 +5,9 @@ def version = '2.1.4'
 
 pipeline {
     agent {
-        label 'maven'
+        node {
+            label 'maven'
+        }
     }
 
     environment {
@@ -15,9 +17,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo '<--------------- Build Stage Started --------------->'
                 sh 'mvn clean deploy'
-                echo '<--------------- Build Stage Ended --------------->'
             }
         }
 
@@ -37,9 +37,11 @@ pipeline {
                     def uploadSpec = """{
                         "files": [
                             {
-                                "pattern": "jarstaging/*",
-                                "target": "jsmaven-libs-release-local/",
-                                "props": "${properties}"
+                                "pattern": "jarstaging/(*)",
+                                "target": "jsmaven-libs-release-local/{1}",
+                                "flat": false,
+                                "props": "${properties}",
+                                "exclusions": [ "*.sha1", "*.md5" ]
                             }
                         ]
                     }"""
@@ -58,7 +60,7 @@ pipeline {
             steps {
                 script {
                     echo '<--------------- Docker Build Started --------------->'
-                    app = docker.build("${imageName}:${version}")
+                    app = docker.build(imageName+":"+version)
                     echo '<--------------- Docker Build Ended --------------->'
                 }
             }
@@ -68,23 +70,22 @@ pipeline {
             steps {
                 script {
                     echo '<--------------- Docker Publish Started --------------->'
-                    docker.withRegistry("${registry}/artifactory", 'Jforgjenkins-cred') {
-                        app.push("${version}")
+                    docker.withRegistry(registry, 'Jforgjenkins-cred') {
+                        app.push()
                     }
                     echo '<--------------- Docker Publish Ended --------------->'
                 }
             }
         }
 
-        
+
         stage('Deploy') {
             steps {
                 script {
-                    echo '<--------------- Deploy Stage Started --------------->'
-                    sh './deploy.sh'
-                    echo '<--------------- Deploy Stage Ended --------------->'
-                }
+                    sh ' ./deploy.sh'
+                } 
             }
         }
     }
-}
+} 
+

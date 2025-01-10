@@ -83,7 +83,7 @@ pipeline {
             steps {
                 script {
                     echo '<--------------- Deploy started --------------->'
-                    sh 'helm install ttrend ttrend -0.1.0.tgz'
+                    sh 'helm install ttrend ttrend-0.1.0.tgz'
                     echo '<--------------- Deploy ended ----------------->'
                 } 
             }
